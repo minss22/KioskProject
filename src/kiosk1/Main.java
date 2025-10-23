@@ -13,9 +13,8 @@ public class Main {
         menuItems.add(new MenuItem("Hamburger", 5400, "비프패티를 기반으로 야채가 들어간 기본버거"));
 
         Scanner sc = new Scanner(System.in);
-        int input = -1;
-
-        while (input!=0) { // 0 입력 시 종료
+        int input;
+        while (true) { // 0 입력 시 종료
             // 햄버거 메뉴 출력
             System.out.println("[ SHAKESHACK MENU ]");
             for (int i=0;i<menuItems.size();i++) {
@@ -25,8 +24,15 @@ public class Main {
             System.out.print("0. 종료\n- 입력: ");
 
             input = sc.nextInt(); // 입력받기
-            MenuItem menu = menuItems.get(input-1);
-            System.out.printf("- 선택한 메뉴: %s, %d원 (%s)\n\n", menu.name, menu.price, menu.info);
+            if (input==0) {
+                System.out.println("프로그램을 종료합니다.");
+                break;
+            } else if (input<=menuItems.size()) {
+                MenuItem menu = menuItems.get(input - 1);
+                System.out.printf("- 선택한 메뉴: %s, %d원 (%s)\n\n", menu.name, menu.price, menu.info);
+            } else {
+                System.out.println("⚠️선택하신 메뉴는 없습니다. 다시 입력해주세요.\n");
+            }
         }
     }
 }
