@@ -12,7 +12,7 @@ public class Kiosk {
     public void start() { // 메서드: 입력 (반복)
         Scanner sc = new Scanner(System.in);
         int input;
-        while (true) { // 0 입력 시 종료
+        while (true) {
             // 햄버거 메뉴 출력
             System.out.println("[ SHAKESHACK MENU ]");
             for (int i=0;i<menuItems.size();i++) {
@@ -22,13 +22,13 @@ public class Kiosk {
             System.out.print("0. 종료\n- 입력: ");
 
             input = sc.nextInt(); // 입력받기
-            if (input==0) {
+            if (input==0) { // 0 입력 시 종료
                 System.out.println("프로그램을 종료합니다.");
                 break;
-            } else if (input<=menuItems.size()) {
+            } else if (input<=menuItems.size()) { // 메뉴 선택 및 출력
                 MenuItem menu = menuItems.get(input - 1);
                 System.out.printf("- 선택한 메뉴: %s, %d원 (%s)\n\n", menu.name, menu.price, menu.info);
-            } else {
+            } else { // 유효하지 않은 입력에 대해 오류 메시지를 출력
                 System.out.println("⚠️선택하신 메뉴는 없습니다. 다시 입력해주세요.\n");
             }
         }
