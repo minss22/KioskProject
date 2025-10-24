@@ -13,7 +13,7 @@ public class MenuItem {
         this.info = info;
     }
 
-    // 기능
+    // 기능 (Getter)
     public String getName() {
         return name;
     }

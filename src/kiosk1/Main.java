@@ -9,7 +9,7 @@ public class Main {
         Menu Drinks = new Menu("Drinks");
         Menu Desserts = new Menu("Desserts");
 
-        // Menu List 선언 및 추가
+        // List 선언 후, 객체 생성된 Menu 추가
         List<Menu> menus = new ArrayList<>();
         menus.add(burgers);
         menus.add(Drinks);
@@ -21,7 +21,8 @@ public class Main {
         burgers.setMenuItems(new MenuItem("Cheeseburger", 6900, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거"));
         burgers.setMenuItems(new MenuItem("Hamburger", 5400, "비프패티를 기반으로 야채가 들어간 기본버거"));
 
-        Kiosk kiosk = new Kiosk(menus); // Kiosk 객체 생성
+        // Kiosk 객체 생성 및 함수 실행
+        Kiosk kiosk = new Kiosk(menus);
         kiosk.start();
     }
 }

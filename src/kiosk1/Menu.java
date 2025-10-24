@@ -13,15 +13,15 @@ public class Menu {
     }
 
     // 기능
-    public String getCategory() {
+    public String getCategory() { // Getter: 카테고리 리턴
         return category;
     }
 
-    public List<MenuItem> getMenuItems() { // List를 리턴하는 함수
+    public List<MenuItem> getMenuItems() { // Getter: List를 리턴
         return menuItems;
     }
 
-    public void setMenuItems(MenuItem menuItem) {
+    public void setMenuItems(MenuItem menuItem) { // Setter: List에 menuItem 추가
         menuItems.add(menuItem);
     }
 
