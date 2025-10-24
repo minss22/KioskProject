@@ -7,7 +7,7 @@ public class Kiosk {
     private final List<Menu> menus;
 
     // 생성자
-    Kiosk(List<Menu> menus) {
+    public Kiosk(List<Menu> menus) {
         this.menus = menus;
     }
 

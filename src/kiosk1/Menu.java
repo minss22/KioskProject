@@ -8,7 +8,7 @@ public class Menu {
     private final List<MenuItem> menuItems = new ArrayList<>();
 
     // 생성자
-    Menu(String category) {
+    public Menu(String category) {
         this.category = category;
     }
 
