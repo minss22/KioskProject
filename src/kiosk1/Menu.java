@@ -17,4 +17,8 @@ public class Menu {
     public List<MenuItem> getMenuItems() { // List를 리턴하는 함수
         return menuItems;
     }
+
+    public void setMenuItems(MenuItem menuItem) {
+        menuItems.add(menuItem);
+    }
 }
