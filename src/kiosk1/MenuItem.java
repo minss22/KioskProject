@@ -1,16 +1,19 @@
 package kiosk1;
 
 public class MenuItem {
-    private String name;
-    private int price;
-    private String info;
+    // 속성
+    private final String name;
+    private final int price;
+    private final String info;
 
+    // 생성자
     MenuItem(String name, int price, String info) {
         this.name = name;
         this.price = price;
         this.info = info;
     }
 
+    // 기능
     public String getName() {
         return name;
     }

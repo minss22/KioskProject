@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Kiosk {
     // 속성
-    private List<Menu> menus;
+    private final List<Menu> menus;
 
     // 생성자
     Kiosk(List<Menu> menus) {
