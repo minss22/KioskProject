@@ -1,4 +1,5 @@
 package kiosk1;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class Menu {
     }
 
     public List<MenuItem> getMenuItems() { // Getter: List를 리턴
-        return menuItems;
+        return Collections.unmodifiableList(menuItems); // 읽기 전용 리스트
     }
 
     public void setMenuItems(MenuItem menuItem) { // Setter: List에 menuItem 추가
