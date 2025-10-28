@@ -22,7 +22,7 @@ public class Menu {
         return Collections.unmodifiableList(menuItems); // 읽기 전용 리스트
     }
 
-    public void setMenuItems(MenuItem menuItem) { // Setter: List에 menuItem 추가
+    public void addMenuItems(MenuItem menuItem) { // Setter: List에 menuItem 추가
         menuItems.add(menuItem);
     }
 
