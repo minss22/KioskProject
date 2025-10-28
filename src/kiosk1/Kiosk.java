@@ -24,7 +24,7 @@ public class Kiosk {
             if (menuNum == 0) break;
             else if (menuNum == -1) continue;
             else if (menuNum == menus.size() + 1) { // 주문하기
-                if (order() == 1) orders.clear(); // 장바구니 초기화
+                order();
                 System.out.println();
                 continue;
             } else if (menuNum == menus.size() + 2) { // 주문 취소
@@ -46,7 +46,7 @@ public class Kiosk {
             String itemName = item.getName();
             int itemPrice = item.getPrice();
             String itemInfo = item.getInfo();
-            System.out.printf("\n# 선택한 메뉴: %s(%d원) - %s\n", itemName, itemPrice, itemInfo); // 선택한 메뉴 출력
+            System.out.printf("\n🔔 선택한 메뉴: %s(%d원) - %s\n", itemName, itemPrice, itemInfo); // 선택한 메뉴 출력
 
             /* ============ 장바구니 담기 ============ */
             addOrder(itemName, itemPrice);
@@ -85,7 +85,7 @@ public class Kiosk {
     private void addOrder(String itemName, int itemPrice) {
         while (true) {
             try {
-                System.out.println("\n위 메뉴를 장바구니에 추가하시겠습니까?");
+                System.out.println("\n💬 위 메뉴를 장바구니에 추가하시겠습니까?");
                 System.out.print("1. 확인       2. 취소\n- 입력: ");
 
                 int number = sc.nextInt();
@@ -96,7 +96,7 @@ public class Kiosk {
                 int amount = sc.nextInt();
                 if (amount < 1) throw new RuntimeException("⚠️0 이하는 입력할 수 없습니다.");
 
-                System.out.printf("\n%s %d개가 장바구니에 추가되었습니다.\n", itemName, amount);
+                System.out.printf("\n🔔 %s %d개가 장바구니에 추가되었습니다.\n", itemName, amount);
                 orders.add(new Order(itemName, amount, itemPrice * amount));
                 break;
             } catch (RuntimeException e) { // 예외 처리
@@ -105,8 +105,8 @@ public class Kiosk {
         }
     }
 
-    private int order() {
-        System.out.println("\n아래와 같이 주문 하시겠습니까?");
+    private void order() {
+        System.out.println("\n💬 아래와 같이 주문 하시겠습니까?");
 
         for (Order order : orders) { // 주문 확인
             String name = order.getName();
@@ -125,9 +125,33 @@ public class Kiosk {
 
                 if (number != 1 && number != 2) throw new RuntimeException("⚠️번호를 정확히 입력해주세요.");
                 else if (number == 1) {
-                    System.out.printf("주문이 완료되었습니다. %d원이 결제되었습니다.\n", totalPrice);
+                    int rate = discountRate(); // 할인율
+                    System.out.printf("\n🔔 주문이 완료되었습니다. %d원이 결제되었습니다.\n", totalPrice - totalPrice*rate/100);
+                    orders.clear(); // 장바구니 초기화
                 }
-                return number;
+                break;
+            } catch (RuntimeException e) { // 예외 처리
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private int discountRate() {
+        while (true){
+            try {
+                System.out.println("\n💬 할인 정보를 입력해주세요.");
+                DiscountType[] discountTypes = DiscountType.values();
+
+                for (DiscountType d : discountTypes) {
+                    System.out.printf("%d. %-5s : %d", d.ordinal() + 1, d.getKrName(), d.getRate());
+                    System.out.println("%");
+                }
+
+                System.out.print("- 입력: ");
+                int input = sc.nextInt();
+                if (input > discountTypes.length || input < 0)  throw new RuntimeException("⚠️번호를 정확히 입력해주세요.");
+
+                return discountTypes[input-1].getRate();
             } catch (RuntimeException e) { // 예외 처리
                 System.out.println(e.getMessage());
             }
