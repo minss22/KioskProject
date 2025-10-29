@@ -41,7 +41,14 @@ public class Cart {
                 if (amount < 1) throw new RuntimeException("⚠️0 이하는 입력할 수 없습니다.");
 
                 System.out.printf("\n🔔 %s %d개가 장바구니에 추가되었습니다.\n", itemName, amount);
-                cartItems.add(new CartItem(itemName, amount, itemPrice * amount)); // 장바구니 추가 (CartItem 객체 생성)
+
+                for (CartItem cartItem : cartItems) {
+                    if (cartItem.getName().equals(itemName)) { // 동일한 메뉴가 있으면 수량 증가
+                        cartItem.increaseAmount(amount, itemPrice * amount);
+                        return;
+                    }
+                }
+                cartItems.add(new CartItem(itemName, amount, itemPrice * amount)); // ✅ 장바구니 추가 (CartItem 객체 생성)
                 break;
             } catch (RuntimeException e) { // 예외 처리
                 System.out.println(e.getMessage());
@@ -107,7 +114,7 @@ public class Cart {
 
                 System.out.print("- 입력: ");
                 int number = safeNextInt();
-                if (number > discountTypes.length || number < 0)  throw new RuntimeException("⚠️번호를 정확히 입력해주세요.");
+                if (number > discountTypes.length || number < 1)  throw new RuntimeException("⚠️번호를 정확히 입력해주세요.");
 
                 return discountTypes[number-1].getRate();
             } catch (RuntimeException e) { // 예외 처리
