@@ -55,10 +55,16 @@ public class Cart {
 
         System.out.print("- 입력: ");
         String name = sc.next();
+        int beforeSize = cartItems.size();
+        // equalsIgnoreCase: 대소문자 상관없이 비교
+        cartItems = cartItems.stream().filter(x -> !x.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
 
-        cartItems = cartItems.stream().filter(x -> !x.getName().equals(name)).collect(Collectors.toList());
-        System.out.println("\n🔔 수정이 완료되었습니다.");
-        printOrder();
+        if (beforeSize == cartItems.size()) { // 제거된게 없으면 메시지 처리
+            System.out.println("⚠️해당 메뉴가 장바구니에 없습니다.");
+        } else {
+            System.out.println("\n🔔 수정이 완료되었습니다.");
+            printOrder();
+        }
     }
 
     public void order() { // 주문하기
