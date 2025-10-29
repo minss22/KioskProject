@@ -32,16 +32,16 @@ public class Cart {
                 System.out.println("\n💬 위 메뉴를 장바구니에 추가하시겠습니까?");
                 System.out.print("1. 확인          2. 취소\n- 입력: ");
 
-                int number = sc.nextInt();
+                int number = safeNextInt();
                 if (number != 1 && number != 2) throw new RuntimeException("⚠️번호를 정확히 입력해주세요.");
                 else if (number == 2) break;
 
                 System.out.print("- 수량을 입력해주세요: ");
-                int amount = sc.nextInt();
+                int amount = safeNextInt();
                 if (amount < 1) throw new RuntimeException("⚠️0 이하는 입력할 수 없습니다.");
 
                 System.out.printf("\n🔔 %s %d개가 장바구니에 추가되었습니다.\n", itemName, amount);
-                cartItems.add(new CartItem(itemName, amount, itemPrice * amount));
+                cartItems.add(new CartItem(itemName, amount, itemPrice * amount)); // 장바구니 추가 (CartItem 객체 생성)
                 break;
             } catch (RuntimeException e) { // 예외 처리
                 System.out.println(e.getMessage());
@@ -72,12 +72,13 @@ public class Cart {
         while (true){
             try {
                 System.out.print("\n1. 예          2. 아니요\n- 입력: ");
-                int number = sc.nextInt();
+                int number = safeNextInt();
 
                 if (number != 1 && number != 2) throw new RuntimeException("⚠️번호를 정확히 입력해주세요.");
                 else if (number == 1) {
                     int rate = discountRate(); // 할인율
-                    System.out.printf("\n🔔 주문이 완료되었습니다. %d원이 결제되었습니다.\n", totalPrice - totalPrice*rate/100);
+                    System.out.printf("\n🔔 %d원이 결제되었습니다.\n", totalPrice - totalPrice*rate/100);
+                    System.out.println("   주문이 완료되었습니다. 감사합니다.");
                     clearOrder(); // 장바구니 초기화
                 }
                 break;
@@ -99,13 +100,21 @@ public class Cart {
                 }
 
                 System.out.print("- 입력: ");
-                int input = sc.nextInt();
-                if (input > discountTypes.length || input < 0)  throw new RuntimeException("⚠️번호를 정확히 입력해주세요.");
+                int number = safeNextInt();
+                if (number > discountTypes.length || number < 0)  throw new RuntimeException("⚠️번호를 정확히 입력해주세요.");
 
-                return discountTypes[input-1].getRate();
+                return discountTypes[number-1].getRate();
             } catch (RuntimeException e) { // 예외 처리
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private int safeNextInt() {
+        if (!sc.hasNextInt()) { // 숫자가 아니면 예외처리
+            sc.next();
+            throw new RuntimeException("⚠️번호를 정확히 입력해주세요.");
+        }
+        return sc.nextInt(); // 숫자면 리턴
     }
 }

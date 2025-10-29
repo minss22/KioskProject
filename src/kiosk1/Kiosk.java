@@ -70,13 +70,19 @@ public class Kiosk {
     }
 
     private <S> int inputInt(List<S> list) {
+        if (!sc.hasNextInt()) {
+            System.out.println("⚠️번호를 정확히 입력해주세요.\n");
+            sc.next();
+            return -1;
+        }
         int input = sc.nextInt();
+
         if (input == 0) { // 0 입력 시 종료
             System.out.println();
             if (list == menus) System.out.println("프로그램을 종료합니다.");
             else return -1;
         } else if (input < 0 || input > list.size() + (list == menus ? 3 : 0)) { // 유효하지 않은 입력에 대해 오류 메시지를 출력
-            System.out.println("⚠️ 선택하신 메뉴는 없습니다. 다시 입력해주세요.\n");
+            System.out.println("⚠️번호를 정확히 입력해주세요.\n");
             return -1;
         }
         return input;

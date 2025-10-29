@@ -5,7 +5,6 @@ public class CartItem {
     private final String name;
     private final int amount;
     private final int price;
-    private int cnt;
 
     // 생성기
     public CartItem(String name, int amount, int price) {
