@@ -54,8 +54,9 @@ public class Kiosk {
     private void printMenus() {
         System.out.println("=========================================");
         System.out.println("[ MAIN MENU ]");
+        int idx = 1;
         for (Menu menu : menus) {
-            System.out.printf("%d. %s\n", menus.indexOf(menu) + 1, menu.getCategory());
+            System.out.printf("%d. %s\n", idx++, menu.getCategory());
         }
         System.out.println("0. 종료");
 
