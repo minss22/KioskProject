@@ -28,9 +28,9 @@ public class Menu {
 
     public void printMenuItems() {
         System.out.printf("\n[ %s MENU ]\n", category.toUpperCase());
+        int idx = 1;
         for (MenuItem item : menuItems) {
-            int idx = menuItems.indexOf(item)+1;
-            System.out.printf("%d. %-13s | %4d 원 | %s\n", idx, item.getName(), item.getPrice(), item.getInfo());
+            System.out.printf("%d. %-13s | %4d 원 | %s\n", idx++, item.getName(), item.getPrice(), item.getInfo());
         }
         System.out.print("0. 뒤로가기\n- 입력: ");
     }
