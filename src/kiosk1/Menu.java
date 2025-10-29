@@ -2,6 +2,7 @@ package kiosk1;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class Menu {
     // 속성
@@ -28,10 +29,8 @@ public class Menu {
 
     public void printMenuItems() {
         System.out.printf("\n[ %s MENU ]\n", category.toUpperCase());
-        int idx = 1;
-        for (MenuItem item : menuItems) {
-            System.out.printf("%d. %-13s | %4d 원 | %s\n", idx++, item.getName(), item.getPrice(), item.getInfo());
-        }
+        IntStream.range(0, menuItems.size()).forEach(i -> System.out.printf("%d. %-13s | %4d 원 | %s\n",
+                i+1, menuItems.get(i).getName(), menuItems.get(i).getPrice(), menuItems.get(i).getInfo()));
         System.out.print("0. 뒤로가기\n- 입력: ");
     }
 }
