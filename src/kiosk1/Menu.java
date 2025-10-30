@@ -4,8 +4,13 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+/**
+ * Menu 클래스
+ * - 하나의 카테고리를 관리
+ * - 여러 MenuItem을 보관
+ */
 public class Menu {
-    // 속성
+    // 속성: 카테고리, 메뉴 리스트
     private final String category;
     private final List<MenuItem> menuItems = new ArrayList<>();
 
@@ -15,18 +20,22 @@ public class Menu {
     }
 
     // 기능
-    public String getCategory() { // Getter: 카테고리 리턴
+    /** 카테고리 명 반환 */
+    public String getCategory() { // Getter
         return category;
     }
 
-    public List<MenuItem> getMenuItems() { // Getter: List를 리턴
+    /** 메뉴 리스트 반환 */
+    public List<MenuItem> getMenuItems() { // Getter
         return Collections.unmodifiableList(menuItems); // 읽기 전용 리스트
     }
 
-    public void addMenuItems(MenuItem menuItem) { // Setter: List에 menuItem 추가
+    /** 새로운 메뉴 추가 */
+    public void addMenuItems(MenuItem menuItem) {
         menuItems.add(menuItem);
     }
 
+    /** 메뉴 리스트 출력 - 스트림 활용 */
     public void printMenuItems() {
         System.out.printf("\n[ %s MENU ]\n", category.toUpperCase());
         IntStream.range(0, menuItems.size()).forEach(i -> System.out.printf("%d. %-13s | %4d 원 | %s\n",
