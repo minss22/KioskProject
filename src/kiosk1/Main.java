@@ -27,6 +27,15 @@ public class Main {
         burgers.addMenuItems(new MenuItem("Cheeseburger", 6900, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거"));
         burgers.addMenuItems(new MenuItem("Hamburger", 5400, "비프패티를 기반으로 야채가 들어간 기본버거"));
 
+        drinks.addMenuItems(new MenuItem("Coke", 2500, "시원한 코카콜라"));
+        drinks.addMenuItems(new MenuItem("Sprite", 2500, "상쾌한 스프라이트"));
+        drinks.addMenuItems(new MenuItem("Lemonade", 3900, "직접 만든 상큼한 레모네이드"));
+        drinks.addMenuItems(new MenuItem("Iced Tea", 3400, "향긋한 홍차로 만든 아이스티"));
+
+        desserts.addMenuItems(new MenuItem("Ice cream", 4900, "진한 바닐라 커스터드 아이스크림"));
+        desserts.addMenuItems(new MenuItem("Concretes", 6500, "커스터드 아이스크림에 다양한 토핑을 믹스한 디저트"));
+        desserts.addMenuItems(new MenuItem("Brownie", 4200, "촉촉한 초콜릿 브라우니"));
+
         // Kiosk 객체 생성 및 함수 실행
         Kiosk kiosk = new Kiosk(menus);
         kiosk.start();
