@@ -21,32 +21,33 @@ public class Kiosk {
 
             int menuNum = inputInt(menus); // 입력받기
             if (menuNum == 0) break;
-            else if (menuNum == -1) continue;
-            else if (menuNum > menus.size()) {
-                if (menuNum == menus.size() + 1) cart.order(); // 주문하기
-                else if (menuNum == menus.size() + 2) cart.modifyOrder(); // 장바구니 수정
-                else if (menuNum == menus.size() + 3) cart.clearOrder(); // 주문 취소
-                System.out.println();
-                continue;
+            if (menuNum == -1) continue;
+
+            if (menuNum <= menus.size()) { // [ MAIN MENU ] 선택
+                Menu menu = menus.get(menuNum - 1); // Menu(카테고리) 선택
+
+                /* ========= 메뉴 출력 후 입력받기 ========= */
+                menu.printMenuItems(); // MenuItem 리스트 출력
+                List<MenuItem> menuItems = menu.getMenuItems(); // MenuItem(메뉴) 리스트
+
+                int itemNum = inputInt(menuItems); // 입력받기
+                if (itemNum == -1) continue;
+
+                MenuItem item = menuItems.get(itemNum - 1); // MenuItem(메뉴) 선택
+                String itemName = item.getName();
+                int itemPrice = item.getPrice();
+                String itemInfo = item.getInfo();
+                System.out.printf("\n🔔 선택한 메뉴: %s(%d원) - %s\n", itemName, itemPrice, itemInfo); // 선택한 메뉴 출력
+
+                /* ============ 장바구니 담기 ============ */
+                cart.addOrder(itemName, itemPrice);
+
+            } else { // [ ORDER MENU ] 선택
+                int n = menuNum - menus.size();
+                if (n == 1) cart.order(); // 주문하기
+                else if (n == 2) cart.modifyOrder(); // 장바구니 수정
+                else if (n == 3) cart.clearOrder(); // 주문 취소
             }
-
-            Menu menu = menus.get(menuNum - 1); // Menu(카테고리) 선택
-
-            /* ========= 메뉴 출력 후 입력받기 ========= */
-            menu.printMenuItems(); // MenuItem 리스트 출력
-            List<MenuItem> menuItems = menu.getMenuItems(); // MenuItem(메뉴) 리스트
-
-            int itemNum = inputInt(menuItems); // 입력받기
-            if (itemNum == -1) continue;
-
-            MenuItem item = menuItems.get(itemNum - 1); // MenuItem(메뉴) 선택
-            String itemName = item.getName();
-            int itemPrice = item.getPrice();
-            String itemInfo = item.getInfo();
-            System.out.printf("\n🔔 선택한 메뉴: %s(%d원) - %s\n", itemName, itemPrice, itemInfo); // 선택한 메뉴 출력
-
-            /* ============ 장바구니 담기 ============ */
-            cart.addOrder(itemName, itemPrice);
             System.out.println();
         }
     }
@@ -70,7 +71,7 @@ public class Kiosk {
     }
 
     private <S> int inputInt(List<S> list) {
-        if (!sc.hasNextInt()) {
+        if (!sc.hasNextInt()) { // 숫자 아니면 예외처리
             System.out.println("⚠️번호를 정확히 입력해주세요.\n");
             sc.next();
             return -1;
@@ -81,8 +82,8 @@ public class Kiosk {
             System.out.println();
             if (list == menus) System.out.println("프로그램을 종료합니다.");
             else return -1;
-        } else if (input < 0 || input > list.size() + (list == menus ? 3 : 0)) { // 유효하지 않은 입력에 대해 오류 메시지를 출력
-            System.out.println("⚠️번호를 정확히 입력해주세요.\n");
+        } else if (input < 0 || input > list.size() + (list == menus && !cart.getOrder().isEmpty() ? 3 : 0)) {
+            System.out.println("⚠️번호를 정확히 입력해주세요.\n"); // 유효하지 않은 입력에 대해 오류 메시지를 출력
             return -1;
         }
         return input;
